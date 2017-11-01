@@ -12,8 +12,20 @@ android:
   - android-26
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+install:
+    - echo y | android update sdk -u -a -t tools
+    - echo y | android update sdk -u -a -t platform-tools
+    - echo y | android update sdk -u -a -t build-tools-25.0.2
+    - echo y | android update sdk -u -a -t android-25
+    - echo y | android update sdk -u -a -t extra-google-m2repository
+    - echo y | android update sdk -u -a -t extra-android-m2repository
 script:
+  - yes | sdkmanager --licenses
   - chmod +x ./gradlew
   - ./gradlew clean :rxvalidator:testDebug
+licenses:
+      - 'android-sdk-preview-license-.+'
+      - 'android-sdk-license-.+'
+      - 'google-gdk-license-.+'
 #after_success:
 #  - bash <(curl -s https://codecov.io/bash)
