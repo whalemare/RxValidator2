@@ -6,7 +6,8 @@ The simplest way to add reactive validation to your app
 [![Build Status](https://travis-ci.org/whalemare/RxValidator2.svg?branch=master)](https://travis-ci.org/whalemare/RxValidator2)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-![Screenshot](screens/1.3.2.gif)
+![Screenshot](screens/v1.0.gif)
+
 
 How it works
 ------------
