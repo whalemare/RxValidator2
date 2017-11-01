@@ -112,7 +112,7 @@ allprojects {
 Include dependency with `RxValidator` in your app.gradle file with:
 
 ```groovy
-compile 'com.github.whalemare:RxValidator2:1.0'
+compile 'com.github.whalemare:RxValidator2:1.0.1'
 ```
 
 
