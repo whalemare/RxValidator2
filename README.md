@@ -3,7 +3,7 @@ The simplest way to add reactive validation to your app
 
 [![Release](https://jitpack.io/v/whalemare/rxvalidator2.svg)](https://jitpack.io/#whalemare/rxvalidator2)
 [![Codebeat](https://codebeat.co/badges/b102cc8f-64d6-4cd5-abb7-b4f3181c9152)](https://codebeat.co/projects/github-com-whalemare-rxvalidator2-master)
-[![Build Status](https://travis-ci.org/whalemare/RxValidator2.svg?branch=master)](https://travis-ci.org/whalemare/RxValidator2)
+[![Build Status](https://api.travis-ci.org/whalemare/RxValidator2.svg?branch=master)](https://travis-ci.org/whalemare/RxValidator2)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
