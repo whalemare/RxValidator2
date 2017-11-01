@@ -1,31 +1,38 @@
 language: android
 jdk: oraclejdk8
-env:
-  global:
-    - ANDROID_TARGET=android-27
-    - ANDROID_ABI=armeabi-v7a
-android:
-  components:
-  - tools
-  - platform-tools
-  - build-tools-26.0.2
-  - android-26
-  - extra-android-m2repository
-  - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+
+before_cache:
+  # Do not cache a few Gradle files/directories (see https://docs.travis-ci.com/user/languages/java/#Caching)
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    # Android SDK
+    - $HOME/android-sdk-dl
+    - $HOME/android-sdk
+
+    # Gradle dependencies
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+    # Android build cache (see http://tools.android.com/tech-docs/build-cache)
+    - $HOME/.android/build-cache
+
 install:
-    - echo y | android update sdk -u -a -t tools
-    - echo y | android update sdk -u -a -t platform-tools
-    - echo y | android update sdk -u -a -t build-tools-25.0.2
-    - echo y | android update sdk -u -a -t android-25
-    - echo y | android update sdk -u -a -t extra-google-m2repository
-    - echo y | android update sdk -u -a -t extra-android-m2repository
-script:
-  - yes | sdkmanager --licenses
-  - chmod +x ./gradlew
-  - ./gradlew clean :rxvalidator:testDebug
-licenses:
-      - 'android-sdk-preview-license-.+'
-      - 'android-sdk-license-.+'
-      - 'google-gdk-license-.+'
-#after_success:
-#  - bash <(curl -s https://codecov.io/bash)
+  # Download and unzip the Android SDK tools (if not already there thanks to the cache mechanism)
+  # Latest version available here: https://developer.android.com/studio/index.html#downloads
+  - if test ! -e $HOME/android-sdk-dl/sdk-tools.zip ; then curl https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip > $HOME/android-sdk-dl/sdk-tools.zip ; fi
+  - unzip -qq -n $HOME/android-sdk-dl/sdk-tools.zip -d $HOME/android-sdk
+
+  # Install or update Android SDK components (will not do anything if already up to date thanks to the cache mechanism)
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'tools' > /dev/null
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'platform-tools' > /dev/null
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'build-tools;27.0.0' > /dev/null
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'platforms;android-27' > /dev/null
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'extras;google;m2repository' > /dev/null
+
+env:
+  - ANDROID_HOME=$HOME/android-sdk
+
+script: ./gradlew --no-daemon --parallel lintDebug testDebug
