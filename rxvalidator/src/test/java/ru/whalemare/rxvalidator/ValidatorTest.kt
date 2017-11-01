@@ -111,7 +111,7 @@ class ValidatorTest {
         })
 
         val shouldBeCalledOnce = AtomicInteger()
-        validator.validate("some data", onInvalid = {
+        validator.validate("some data", onError = {
             shouldBeCalledOnce.incrementAndGet()
         })
 
@@ -127,7 +127,7 @@ class ValidatorTest {
             override fun errorMessage() = errorMessage
         })
 
-        validator.validate("some data", onInvalid = { message ->
+        validator.validate("some data", onError = { message ->
             Assert.assertEquals(errorMessage, message)
         })
     }

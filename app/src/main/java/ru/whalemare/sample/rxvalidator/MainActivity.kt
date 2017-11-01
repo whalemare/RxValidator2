@@ -9,8 +9,8 @@ import io.reactivex.Observable
 import ru.whalemare.rxvalidator.BuildConfig
 import ru.whalemare.rxvalidator.RxCombineValidator
 import ru.whalemare.rxvalidator.RxValidator
-import ru.whalemare.rxvalidator.rule.MinLengthRule
-import ru.whalemare.rxvalidator.rule.NotEmptyRule
+import ru.whalemare.sample.rxvalidator.rule.MinLengthRule
+import ru.whalemare.sample.rxvalidator.rule.NotEmptyRule
 
 /**
  * @since 2017
@@ -22,10 +22,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editEmail: TextInputLayout
     private lateinit var button: Button
     private lateinit var textVersion: TextView
+    private val mainPresenter = MainPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        mainPresenter.attachView(this)
         setupView()
 
         // disable button by first start from code or xml
@@ -36,14 +38,14 @@ class MainActivity : AppCompatActivity() {
                 .apply {
                     addRule(NotEmptyRule())
                     addRule(MinLengthRule(5))
-                }.validate()
+                }.asObservable()
 
         // add validations rules for field email
         val emailObservable: Observable<Boolean> = RxValidator(editEmail)
                 .apply {
                     addRule(NotEmptyRule())
                     addRule(MinLengthRule(7))
-                }.validate()
+                }.asObservable()
 
 
         // combine our validation observables into one
@@ -55,6 +57,35 @@ class MainActivity : AppCompatActivity() {
                 })
     }
 
+    private fun setupView() {
+        editLogin = findViewById(R.id.layout_login)
+        editEmail = findViewById(R.id.layout_email)
+        button = findViewById(R.id.button)
+        textVersion = findViewById(R.id.text_version)
+        textVersion.apply {
+            val version = "${getString(R.string.app_name)} ${BuildConfig.VERSION_NAME}"
+            textVersion.text = version
+        }
+    }
+
+    //region for model layer
+    fun modelLayerValidation() {
+        RxValidator.createObservable(editEmail.editText!!)
+                .subscribe({
+                    mainPresenter.onEmailTextChanges(it)
+                })
+    }
+
+    fun onEmailValid() {
+        // some logic
+    }
+
+    fun onEmailInvalid(errorMessage: String) {
+        // some logic
+    }
+
+    //endregion
+
     /**
      * This function execute all observables, because this
      * setting text to all of 'listening' views and trigger all observables,
@@ -65,16 +96,5 @@ class MainActivity : AppCompatActivity() {
     fun emulateFirstSetDataFromApi() {
         editLogin.editText!!.setText("")
         editEmail.editText!!.setText("")
-    }
-
-    private fun setupView() {
-        editLogin = findViewById(R.id.layout_login)
-        editEmail = findViewById(R.id.layout_email)
-        button = findViewById(R.id.button)
-        textVersion = findViewById(R.id.text_version)
-        textVersion.apply {
-            val version = "${getString(R.string.app_name)} ${BuildConfig.VERSION_NAME}"
-            textVersion.text = version
-        }
     }
 }

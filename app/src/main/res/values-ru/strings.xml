@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pattern_only_symbols">\\w+</string>
+    <string name="error_message">Ошибка из ресурсов</string>
+    <string name="text_login">Введите login</string>
+    <string name="text_email">Введите email</string>
+    <string name="action_login">Войти</string>
+</resources>

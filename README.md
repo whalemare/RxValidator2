@@ -7,14 +7,18 @@ The simplest way to add reactive validation to your app
 
 How it works
 ------------
-Problem: in your application, there are fields that must be validated. 
+### Problem:
+
+in your application, there are fields that must be validated. 
 When the number of validation rules becomes greater than 1, to control the display of errors in the fields becomes difficult.
 
-Solve: separate your validation logic by S in SOLID, into own classes. 
+### Solve
+Separate your validation logic by S in SOLID, into own classes. 
 After that, attach validaton rules to your fields and combine validation results for change some ui states (ex. change visibility of button)
 
 Usage
 -----
+### View layer
 Firstly, you need write your own rules validation for some fields. 
 
 ```kotlin
@@ -29,30 +33,67 @@ class NotNullRule : ValidateRule {
 
 
 Attach your validation rules to field
+
 ```kotlin
-    val loginObservable: Observable<Boolean> = RxValidator(editLogin)
-            .apply {
-                addRule(NotEmptyRule())
-                addRule(MinLengthRule(5))
-            }.validate()
-            
-    val emailObservable: Observable<Boolean> = RxValidator(editEmail)
-            .apply {
-                addRule(NotEmptyRule())
-                addRule(MinLengthRule(7))
-            }.validate()
+val loginObservable: Observable<Boolean> = RxValidator(editLogin)
+        .apply {
+            addRule(NotEmptyRule())
+            addRule(MinLengthRule(5))
+        }.asObservable()
+        
+val emailObservable: Observable<Boolean> = RxValidator(editEmail)
+        .apply {
+            addRule(NotEmptyRule())
+            addRule(MinLengthRule(7))
+        }.asObservable()
 ```
 
 Combine your validation results to change button state 
 
 ```kotlin
-    RxCombineValidator(loginObservable, emailObservable)
-            .asObservable()
-            .distinctUntilChanged()
-            .subscribe({ valid ->
-                button.isEnabled = valid
-            })
+RxCombineValidator(loginObservable, emailObservable)
+        .asObservable()
+        .distinctUntilChanged()
+        .subscribe({ valid ->
+            button.isEnabled = valid
+        })
 ```
+
+### Model layer
+Create text watcher for your field
+
+```kotlin
+RxValidator.createObservable(editEmail)
+        .subscribe({
+            mainPresenter.onEmailTextChanges(it)
+        })
+```
+
+Add some validation and handle events without rx
+
+```kotlin
+val validator = Validator().apply {
+    addRule(NotNullRule())
+    addRule(NotEmptyRule())
+}
+    
+fun onEmailTextChanges(text: String) {
+    validator.validate(text,
+            onSuccess = {
+                view?.onEmailValid()
+            },
+            onError = { errorMessage ->
+                view?.onEmailInvalid(errorMessage)
+            })
+}
+```
+
+Why
+---
+* You can use it in model layer, for consistent architecture rules
+* You can use it in view layer, with rx wrappers
+* You need test only your custom validation rules, because the main features of the library are already covered by tests 
+
 
 Install
 -------

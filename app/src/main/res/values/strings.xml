@@ -2,7 +2,7 @@
     <string name="app_name">RxValidator</string>
     <string name="pattern_only_symbols">\\w+</string>
     <string name="error_message">Error message from resources</string>
-    <string name="text_login">Введите логин</string>
-    <string name="text_email">Введите email</string>
-    <string name="action_login">Логин</string>
+    <string name="text_login">Enter login</string>
+    <string name="text_email">Enter email</string>
+    <string name="action_login">Enter</string>
 </resources>

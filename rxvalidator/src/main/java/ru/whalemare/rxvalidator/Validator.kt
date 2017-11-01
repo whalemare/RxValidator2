@@ -14,12 +14,12 @@ open class Validator {
 
     fun validate(data: String,
                  onSuccess: (() -> Unit)? = null,
-                 onInvalid: ((String) -> Unit)? = null): Boolean {
-        Preconditions.atLeastOneNotNull(onSuccess, onInvalid)
+                 onError: ((String) -> Unit)? = null): Boolean {
+        Preconditions.atLeastOneNotNull(onSuccess, onError)
 
         rules.forEach {
             if (!it.validate(data)) {
-                onInvalid?.invoke(it.errorMessage())
+                onError?.invoke(it.errorMessage())
                 return false
             }
         }

@@ -1,7 +1,6 @@
 package ru.whalemare.sample.rxvalidator.rule
 
 import android.content.res.Resources
-import ru.whalemare.rxvalidator.rule.BaseResourcesRule
 import ru.whalemare.sample.rxvalidator.R
 
 /**

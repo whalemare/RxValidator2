@@ -1,4 +1,4 @@
-package ru.whalemare.rxvalidator.rule
+package ru.whalemare.sample.rxvalidator.rule
 
 import ru.whalemare.rxvalidator.ValidateRule
 
@@ -11,5 +11,5 @@ class MinLengthRule(val count: Int): ValidateRule {
         return data?.length ?: 0 >= count
     }
 
-    override fun errorMessage() = "Длина текста должна быть больше либо равна $count"
+    override fun errorMessage() = "Text must be smaller than $count"
 }

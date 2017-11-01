@@ -1,4 +1,4 @@
-package ru.whalemare.rxvalidator.rule
+package ru.whalemare.sample.rxvalidator.rule
 
 import ru.whalemare.rxvalidator.ValidateRule
 import java.util.regex.Pattern
@@ -10,7 +10,7 @@ import java.util.regex.Pattern
 open class PatternRule(val pattern: Pattern) : ValidateRule {
 
     override fun errorMessage(): String {
-        return "Паттерн $pattern не прошел проверку"
+        return "Pattern $pattern not valid"
     }
 
     override fun validate(data: String?): Boolean {

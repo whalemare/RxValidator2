@@ -1,4 +1,4 @@
-package ru.whalemare.rxvalidator.rule
+package ru.whalemare.sample.rxvalidator.rule
 
 import java.util.regex.Pattern
 
