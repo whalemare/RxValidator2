@@ -14,8 +14,8 @@ class MainPresenter {
     private var view: MainActivity? = null
 
     val validator = Validator().apply {
-        addRule(NotNullRule())
-        addRule(NotEmptyRule())
+        add(NotNullRule())
+        add(NotEmptyRule())
     }
 
     fun onEmailTextChanges(text: String) {

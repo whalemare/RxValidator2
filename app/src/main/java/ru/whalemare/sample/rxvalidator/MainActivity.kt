@@ -34,18 +34,16 @@ class MainActivity : AppCompatActivity() {
         button.isEnabled = false
 
         // add validations rules for field login
-        val loginObservable: Observable<Boolean> = RxValidator(editLogin)
-                .apply {
-                    addRule(NotEmptyRule())
-                    addRule(MinLengthRule(5))
-                }.asObservable()
+        val loginObservable: Observable<Boolean> = RxValidator(editLogin).apply {
+            add(NotEmptyRule())
+            add(MinLengthRule(5))
+        }.asObservable()
 
         // add validations rules for field email
-        val emailObservable: Observable<Boolean> = RxValidator(editEmail)
-                .apply {
-                    addRule(NotEmptyRule())
-                    addRule(MinLengthRule(7))
-                }.asObservable()
+        val emailObservable = RxValidator(editEmail).apply {
+            add(NotEmptyRule())
+            add(MinLengthRule(7))
+        }.asObservable()
 
 
         // combine our validation observables into one

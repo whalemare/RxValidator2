@@ -43,13 +43,15 @@ class ValidatorTest {
 
     @Test
     fun `should validate true`() {
-        validator.addRule(object : ValidateRule {
-            override fun validate(data: String?) = true
+        validator.apply {
+            add(object : ValidateRule {
+                override fun validate(data: String?) = true
 
-            override fun errorMessage(): String {
-                TODO("not should be called")
-            }
-        })
+                override fun errorMessage(): String {
+                    TODO("not should be called")
+                }
+            })
+        }
 
         var shouldBeTrue = false
         validator.validate("some data", onSuccess = {
@@ -61,25 +63,30 @@ class ValidatorTest {
 
     @Test
     fun `should call onSuccess once`() {
-        validator.addRule(object : ValidateRule {
-            override fun validate(data: String?) = true
+        validator.apply {
+            add(object : ValidateRule {
+                override fun validate(data: String?) = true
 
-            override fun errorMessage(): String {
-                TODO("not should be called")
-            }
-        }).addRule(object : ValidateRule {
-            override fun validate(data: String?) = true
+                override fun errorMessage(): String {
+                    TODO("not should be called")
+                }
+            })
+            add(object : ValidateRule {
+                override fun validate(data: String?) = true
 
-            override fun errorMessage(): String {
-                TODO("not should be called")
-            }
-        }).addRule(object : ValidateRule {
-            override fun validate(data: String?) = true
+                override fun errorMessage(): String {
+                    TODO("not should be called")
+                }
+            })
+            add(object : ValidateRule {
+                override fun validate(data: String?) = true
 
-            override fun errorMessage(): String {
-                TODO("not should be called")
-            }
-        })
+                override fun errorMessage(): String {
+                    TODO("not should be called")
+                }
+            })
+        }
+
 
         val shouldBeCalledOnce = AtomicInteger()
         validator.validate("some data", onSuccess = {
@@ -92,23 +99,20 @@ class ValidatorTest {
     @Test
     fun `should call onInvalid once`() {
         val errorMessage = "errorMessage"
-        validator.addRule(object : ValidateRule {
-            override fun validate(data: String?) = false
+        validator.apply {
+            add(object : ValidateRule {
+                override fun validate(data: String?) = false
 
-            override fun errorMessage() = errorMessage
-        }).addRule(object : ValidateRule {
-            override fun validate(data: String?) = false
+                override fun errorMessage() = errorMessage
+            })
+            add(object : ValidateRule {
+                override fun validate(data: String?) = false
 
-            override fun errorMessage(): String {
-                TODO("not should be called")
-            }
-        }).addRule(object : ValidateRule {
-            override fun validate(data: String?) = false
-
-            override fun errorMessage(): String {
-                TODO("not should be called")
-            }
-        })
+                override fun errorMessage(): String {
+                    TODO("not should be called")
+                }
+            })
+        }
 
         val shouldBeCalledOnce = AtomicInteger()
         validator.validate("some data", onError = {
@@ -121,11 +125,14 @@ class ValidatorTest {
     @Test
     fun `should pass errorMessage to onInvalid`() {
         val errorMessage = "errorMessage"
-        validator.addRule(object : ValidateRule {
-            override fun validate(data: String?) = false
+        validator.apply {
+            add(object : ValidateRule {
+                override fun validate(data: String?) = false
 
-            override fun errorMessage() = errorMessage
-        })
+                override fun errorMessage() = errorMessage
+            })
+        }
+
 
         validator.validate("some data", onError = { message ->
             Assert.assertEquals(errorMessage, message)
