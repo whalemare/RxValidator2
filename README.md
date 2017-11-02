@@ -12,9 +12,9 @@ The simplest way to add reactive validation to your app
 
 How it works
 ------------
-### Problem:
+### Problem
 
-in your application, there are fields that must be validated. 
+In your application, there are fields that must be validated. 
 When the number of validation rules becomes greater than 1, to control the display of errors in the fields becomes difficult.
 
 ### Solve
@@ -42,14 +42,14 @@ Attach your validation rules to field
 ```kotlin
 val loginObservable: Observable<Boolean> = RxValidator(editLogin)
         .apply {
-            addRule(NotEmptyRule())
-            addRule(MinLengthRule(5))
+            add(NotEmptyRule())
+            add(MinLengthRule(5))
         }.asObservable()
         
 val emailObservable: Observable<Boolean> = RxValidator(editEmail)
         .apply {
-            addRule(NotEmptyRule())
-            addRule(MinLengthRule(7))
+            add(NotEmptyRule())
+            add(MinLengthRule(7))
         }.asObservable()
 ```
 
@@ -78,8 +78,8 @@ Add some validation and handle events without rx
 
 ```kotlin
 val validator = Validator().apply {
-    addRule(NotNullRule())
-    addRule(NotEmptyRule())
+    add(NotNullRule())
+    add(NotEmptyRule())
 }
     
 fun onEmailTextChanges(text: String) {
@@ -98,7 +98,7 @@ Why
 * You can use it in model layer, for consistent architecture rules
 * You can use it in view layer, with rx wrappers
 * You need test only your custom validation rules, because the main features of the library are already covered by tests 
-
+* Class Validator extends from LinkedHashSet<ValidateRule>, that you can use all benefits of this collection implementation
 
 Install
 -------
@@ -117,7 +117,7 @@ allprojects {
 Include dependency with `RxValidator` in your app.gradle file with:
 
 ```groovy
-compile 'com.github.whalemare:RxValidator2:1.0.1'
+compile 'com.github.whalemare:RxValidator2:1.1'
 ```
 
 
