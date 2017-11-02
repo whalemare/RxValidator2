@@ -10,7 +10,7 @@ import io.reactivex.Observable
  * @since 2017
  * @author Anton Vlasov - whalemare
  */
-open class RxValidator(val inputLayout: TextInputLayout) : Validator() {
+open class RxValidator(private val inputLayout: TextInputLayout) : Validator() {
 
     /**
      * It`s return new validation observable, that start validate, after your subscription
