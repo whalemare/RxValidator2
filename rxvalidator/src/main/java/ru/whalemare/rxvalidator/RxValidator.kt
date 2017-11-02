@@ -12,6 +12,10 @@ import io.reactivex.Observable
  */
 open class RxValidator(val inputLayout: TextInputLayout) : Validator() {
 
+    /**
+     * It`s return new validation observable, that start validate, after your subscription
+     * @return new validation observable
+     */
     fun asObservable(): Observable<Boolean> {
         return createObservable(editText).map {
             validate(it, onSuccess = {
@@ -29,6 +33,9 @@ open class RxValidator(val inputLayout: TextInputLayout) : Validator() {
     }
 
     companion object {
+        /**
+         * @return represent EditText TextWatcher as Observable<String>, that emmit elements by onTextChanged
+         */
         fun createObservable(editText: EditText): Observable<String> {
             return Observable.create {
                 editText.addTextChangedListener(object : TextWatcher {

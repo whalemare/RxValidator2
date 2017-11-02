@@ -9,6 +9,10 @@ import io.reactivex.Observable
  */
 class RxCombineValidator(vararg val observables: Observable<Boolean>) {
 
+    /**
+     * Combiner for your validations observable, which allows change UI if all observables emmit <b>true</b>
+     * (use-full for change button state)
+     */
     fun asObservable(): Observable<Boolean> {
         return Observable.combineLatest(observables, { arrays ->
             arrays.forEach {
