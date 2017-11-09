@@ -105,19 +105,19 @@ Install
 
 Be sure, that you have `Jitpack` in your root gradle file
 
-```
+```diff
 allprojects {
     repositories {
       jcenter()
-      maven { url "https://jitpack.io" }
++     maven { url "https://jitpack.io" }
     }
 }
 ```
 
 Include dependency with `RxValidator` in your app.gradle file with:
 
-```groovy
-compile 'com.github.whalemare:RxValidator2:1.1'
+```diff
++ compile 'com.github.whalemare:RxValidator2:1.1'
 ```
 
 
