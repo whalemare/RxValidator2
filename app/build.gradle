@@ -4,7 +4,7 @@ apply plugin: 'jacoco-android'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '26.0.3'
     defaultConfig {
         applicationId "ru.whalemare.sample.rxvalidator"
         minSdkVersion 14
@@ -22,15 +22,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation "com.android.support:design:$version_appcompat"
+
+    implementation "com.android.support:appcompat-v7:$version_appcompat"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation project(':rxvalidator')
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:design:$version_appcompat"
-
-    compile "com.android.support:appcompat-v7:$version_appcompat"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile project(path: ':rxvalidator')
+    testImplementation 'junit:junit:4.12'
 }
