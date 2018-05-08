@@ -117,7 +117,7 @@ allprojects {
 Include dependency with `RxValidator` in your app.gradle file with:
 
 ```diff
-+ compile 'com.github.whalemare:RxValidator2:1.1'
++ compile 'com.github.whalemare:RxValidator2:1.3'
 ```
 
 
