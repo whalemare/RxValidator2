@@ -4,7 +4,7 @@ import android.support.design.widget.TextInputLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 
 /**
  * @since 2017

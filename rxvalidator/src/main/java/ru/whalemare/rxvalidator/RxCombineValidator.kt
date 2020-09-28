@@ -1,6 +1,6 @@
 package ru.whalemare.rxvalidator
 
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 
 
 /**
@@ -14,7 +14,7 @@ class RxCombineValidator(vararg private val observables: Observable<Boolean>) {
      * (use-full for change button state)
      */
     fun asObservable(): Observable<Boolean> {
-        return Observable.combineLatest(observables, { arrays ->
+        return Observable.combineLatest(observables.toMutableList(), { arrays ->
             arrays.forEach {
                 if (!(it as Boolean)) {
                     return@combineLatest false
