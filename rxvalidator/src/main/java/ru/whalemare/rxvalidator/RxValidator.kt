@@ -38,21 +38,12 @@ open class RxValidator(private val inputLayout: TextInputLayout) : Validator() {
          */
         fun createObservable(editText: EditText): Observable<String> {
             return Observable.create {
-                editText.addTextChangedListener(object : TextWatcher {
-                    override fun afterTextChanged(s: Editable?) {
-                        // ignore
-                    }
-
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                        // ignore
-                    }
-
-                    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                editText.addTextChangedListener(object : SimpleTextWatcher() {
+                    override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                         it.onNext(s.toString())
                     }
                 })
             }
         }
     }
-
 }
