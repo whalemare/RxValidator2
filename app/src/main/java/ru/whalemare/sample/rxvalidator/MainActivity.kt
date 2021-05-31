@@ -5,7 +5,7 @@ import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.TextView
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import ru.whalemare.rxvalidator.BuildConfig
 import ru.whalemare.rxvalidator.RxCombineValidator
 import ru.whalemare.rxvalidator.RxValidator
